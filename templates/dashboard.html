@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-centers">
+    <div class="col-sm-12">
+      <div class="jumbotron jumbotron-fluid p-2">
+            <div class="container">
+                <div class="row p-2 m-0">
+                    <div class="col-md-12 text-center">
+                      <h4 class="d-inline float-left">Dashboard</h4>
+                      <a class="d-inline float-right btn btn-danger"  href="/logout">Logout</a>
+                    </div>
+                  </div>  
+                <div class="added_new_short_url border border-info p-3 mt-3 mb-3">
+                    <form class="form-inline" action="/create_url" method="post">
+                        <label for="redirectToUrl" class="pr-3">Generate Url</label>
+                        <input type="text" name="url" class="form-control" style="width:80%" placeholder="Enter the url" id="redirectToUrl">
+                        <button type="submit" class="btn btn-primary ">Submit</button>
+                    </form> 
+                </div>  
+            </div>
+      </div>
+      <div class="jumbotron jumbotron-fluid p-2 mt-3">
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Original Url</th>
+                <th scope="col">Short Url</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% if urls %}
+                    {% for url in urls %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>{{ url['url'] }}</td>
+                            <td>{{ url['short_id'] }}</td>
+                            <td>
+                                <a href="/url/delete/{{url['short_id']}}"> 
+                                    <i class="fa fa-trash-o" style="font-size:20px;color:red"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}                
+                {% endif %}
+            </tbody>
+        </table>              
+      </div>
+    </div>
+</div>  
+{% endblock content %}
